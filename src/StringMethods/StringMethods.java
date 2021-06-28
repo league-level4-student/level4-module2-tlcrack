@@ -32,13 +32,19 @@ public class StringMethods {
 
 	// Given Strings s1 and s2, return the longer String
 	public static String longerString(String s1, String s2) {
-		return null;
+		if(s1.length()>s2.length()) {
+			return s1;
+		}
+		return s2;
 	}
 
 	
 	// if String s contains the word "underscores", change all of the spaces to underscores
 	public static String formatSpaces(String s) {
-		return null;
+		if(s.contains("underscores")) {
+			s = s.replace(" ", "_");
+		}
+		return s;
 	}
 
 	
@@ -46,7 +52,57 @@ public class StringMethods {
 	// You cannot assume there are no extra spaces around the name, but you can
 	// assume there is only one space between the first and last name
 	public static String lineLeader(String s1, String s2, String s3) {
-		return null;
+		char check1 = '1';
+		char check2 = '2';
+		char check3 = '3';
+		int startFirst = 0;
+		int startSecond = 0;
+		int startThird = 0;
+		int endFirst = 0;
+		int endSecond = 0;
+		int endThird = 0;
+		
+		for(int i = s1.indexOf(" "); i < s1.length(); i++) {
+			if(Character.isTitleCase(s1.charAt(i))&&!Character.isLowerCase(s1.charAt(i+1))) {
+				startFirst = i;
+				check1 = s1.charAt(i);
+			}
+			if(Character.isLowerCase(s1.charAt(i))&&!Character.isAlphabetic(s1.charAt(i+1))) {
+				endFirst = i;
+				break;
+			}
+		}
+		for(int i = s2.indexOf(" "); i < s2.length(); i++) {
+			if(Character.isTitleCase(s2.charAt(i))&&!Character.isLowerCase(s2.charAt(i+1))) {
+				startSecond = i;
+				check1 = s2.charAt(i);
+			}
+			if(Character.isLowerCase(s2.charAt(i))&&!Character.isAlphabetic(s2.charAt(i+1))) {
+				endSecond = i;
+				break;
+			}
+		}
+		for(int i = s3.indexOf(" "); i < s3.length(); i++) {
+			if(Character.isTitleCase(s3.charAt(i))&&!Character.isLowerCase(s3.charAt(i+1))) {
+				startThird = i;
+				check1 = s3.charAt(i);
+			}
+			if(Character.isLowerCase(s3.charAt(i))&&!Character.isAlphabetic(s3.charAt(i+1))) {
+				endThird = i;
+				break;
+			}
+		}
+		int ascii1 = (int)check1;
+		int ascii2 = (int)check2;
+		int ascii3 = (int)check3;
+		if(ascii1>ascii2&&ascii1>ascii3) {
+			return s1.substring(startFirst, endFirst);
+		}
+		if(ascii2>ascii1&&ascii2>ascii3) {
+			return s2.substring(startSecond, endSecond);
+		}
+			return s3.substring(startThird, endThird);
+		
 	}
 	
 	
