@@ -62,64 +62,68 @@ public class StringMethods {
 		int endSecond = 0;
 		int endThird = 0;
 		
-		for(int i = s1.indexOf(" "); i < s1.length(); i++) {
-			if(Character.isTitleCase(s1.charAt(i))&&!Character.isLowerCase(s1.charAt(i+1))) {
-				startFirst = i;
-				check1 = s1.charAt(i);
-			}
-			if(Character.isLowerCase(s1.charAt(i))&&!Character.isAlphabetic(s1.charAt(i+1))) {
-				endFirst = i;
-				break;
-			}
-		}
-		for(int i = s2.indexOf(" "); i < s2.length(); i++) {
-			if(Character.isTitleCase(s2.charAt(i))&&!Character.isLowerCase(s2.charAt(i+1))) {
-				startSecond = i;
-				check1 = s2.charAt(i);
-			}
-			if(Character.isLowerCase(s2.charAt(i))&&!Character.isAlphabetic(s2.charAt(i+1))) {
-				endSecond = i;
-				break;
-			}
-		}
-		for(int i = s3.indexOf(" "); i < s3.length(); i++) {
-			if(Character.isTitleCase(s3.charAt(i))&&!Character.isLowerCase(s3.charAt(i+1))) {
-				startThird = i;
-				check1 = s3.charAt(i);
-			}
-			if(Character.isLowerCase(s3.charAt(i))&&!Character.isAlphabetic(s3.charAt(i+1))) {
-				endThird = i;
-				break;
-			}
-		}
 		int ascii1 = (int)check1;
 		int ascii2 = (int)check2;
 		int ascii3 = (int)check3;
 		if(ascii1>ascii2&&ascii1>ascii3) {
-			return s1.substring(startFirst, endFirst);
+			return trimStrings(s1, startFirst, check1, endFirst);
 		}
 		if(ascii2>ascii1&&ascii2>ascii3) {
-			return s2.substring(startSecond, endSecond);
+			return trimStrings(s2, startSecond, check2, endSecond);
 		}
-			return s3.substring(startThird, endThird);
+		return trimStrings(s3, startThird, check3, endThird);
 		
+	}
+	public static String trimStrings(String s1, int startFirst, int check1, int endFirst) {
+		for(int i = 0; i < s1.length(); i++) {
+			if(Character.isAlphabetic(s1.charAt(i))) {
+				startFirst = i;
+				
+				break;
+			}
+		}
+			for(int i = s1.length()-1; i >= 0; i--) {
+			
+			if(Character.isAlphabetic(s1.charAt(i))) {
+				check1 = s1.charAt(i);
+				endFirst = i+1;
+				break;
+			
+			}
+		}
+		return s1.substring(startFirst, endFirst);
 	}
 	
 	
 	// Return the sum of all numerical digits in the String
 	public static int numeralSum(String s) {
-		return 0;
+		int sum = 0;
+		
+		for(int i = 0; i < s.length(); i++) {
+			if(Character.isDigit(s.charAt(i))){
+				sum += Integer.parseInt(s.substring(i, i+1));
+			}
+		}
+		return sum;
 	}
 	
 	
 	// Return the number of times String substring appears in String s
 	public static int substringCount(String s, String substring) {
-		return 0;
+		int strings = 0;
+		for(int i = 0; i < s.length(); i++) {
+			if(i<s.length()-substring.length()+1) {
+				if(s.substring(i, i+substring.length()).equals(substring)) {
+					strings+=1;
+				}
+			}
+		}
+		return strings;
 	}
 
 	// Call Utitilities.encrypt to encrypt String s
 	public static String encrypt(String s, char key) {
-		return null;
+		return Utilities.encrypt(s.getBytes(), (byte)key);
 	}
 
 	// Call Utilities.decrypt to decrypt the cyphertext
