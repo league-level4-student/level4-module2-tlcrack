@@ -128,14 +128,24 @@ public class StringMethods {
 
 	// Call Utilities.decrypt to decrypt the cyphertext
 	public static String decrypt(String s, char key) {
-		return null;
+		return Utilities.decrypt(s, (byte)key);
 	}
 
 
 	// Return the number of words in String s that end with String substring
 	// You can assume there are no punctuation marks between words
 	public static int wordsEndsWithSubstring(String s, String substring) {
-		return 0;
+		int count=0;
+		String[] substrings = s.split(" ");
+		for(int i = 0; i<substrings.length;i++) {
+			String word = substrings[i];
+			if(word.length()>substring.length()) {
+				if(word.substring(word.length()-substring.length(), word.length()).equals(substring)) {
+					count++;
+				}
+			}
+		}
+		return count;
 	}
 	
 
@@ -143,15 +153,36 @@ public class StringMethods {
 	// of String substring and the final occurrence
 	// You can assume that substring will appear at least twice
 	public static int distance(String s, String substring) {
-		return 0;
-	}
+		int midspace = 0;
+		int firstSubstring = s.indexOf(substring);
+		int lastSubstring = s.lastIndexOf(substring);
+		
+		midspace = lastSubstring-(firstSubstring+substring.length());
+		
+		return midspace;
+	} 
 
 
 	// Return true if String s is a palindrome
 	// palindromes are words or phrases are read the same forward as backward.
 	// HINT: ignore/remove all punctuation and spaces in the String
 	public static boolean palindrome(String s) {
+		String sReassembled = "";
+		for(int i = 0; i<s.length(); i++) {
+			if(Character.isAlphabetic(s.charAt(i))) {
+				sReassembled += s.charAt(i);
+			}
+		}
+		String Ƨ = "";
+		for(int i=sReassembled.length()-1;i>-1;i--) {
+			Ƨ+=sReassembled.charAt(i);
+		}
+		if(Ƨ.equalsIgnoreCase(sReassembled)) {
 		return true;
+		}
+		else {
+			return false;
+		}
 	}
 	
 }
